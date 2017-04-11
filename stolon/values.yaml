@@ -9,12 +9,12 @@
 ## Stolon image.
 ##
 
-image: "sorintlab/stolon"
+image: "timfpark/postgis-stolon"
 
 ## Stolon image version.
 ## ref: https://hub.docker.com/r/sorintlab/stolon/tags/
 ##
-imageTag: "v0.5.0-pg9.6"
+imageTag: "9.6"
 
 ## Specify a imagePullPolicy: 'Always' if imageTag is 'latest', else set to 'IfNotPresent'.
 ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -23,7 +23,7 @@ imageTag: "v0.5.0-pg9.6"
 
 ## Configuration values for Stolon.
 
-clusterName: "kube-stolon"
+clusterName: "postgres-cluster"
 debug: false
 
 
@@ -41,16 +41,16 @@ etcd:
   persistence:
     enabled: true
     classVersion: beta
-    class: slow
+    class: fast 
 
 
 pgReplUsername: "repluser"
-pgReplPassword: "replPassword"
-pgSuperuserName: "stolon"
+pgReplPassword: "linux4sure"
+pgSuperuserName: "ops"
 
 ## set password for the superuser
 ## default is 15 random chars
-# pgSuperuserPasword: ""
+pgSuperuserPasword: "linux4sure"
 
 sentinel:
   replicas: 3
@@ -92,8 +92,8 @@ keeper:
 
   resources:
     requests:
-      cpu: "100m"
-      memory: "512Mi"
+      cpu: "500m"
+      memory: "4Gi"
 
 ## Persistent Volume Storage configuration.
 ## ref: https://kubernetes.io/docs/user-guide/persistent-volumes
@@ -102,14 +102,14 @@ keeper:
 persistence:
   ## Enable persistence using Persistent Volume Claims.
   ##
-  enabled: false
+  enabled: true 
 
   ## Persistent Volume Storage Class Version.
   ##
   classVersion: beta
   ## Persistent Volume Storage Class.
   ##
-  class: slow
+  class: fast 
 
   ## Persistent Volume Access Mode.
   ##
@@ -117,4 +117,4 @@ persistence:
 
   ## Persistent Volume Storage Size.
   ##
-  size: 10Gi
+  size: 256Gi
